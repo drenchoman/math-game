@@ -20,27 +20,75 @@ let score = 0;
 let streak = 0;
 let bestStreak = 0;
 let myTimer;
-let selnum = localStorage.getItem("selectedNum");
-let selectedNum = 30;
-let ansNum = localStorage.getItem("answerTime");
-let answerTime = 40;
+let selectedNum;
+let answerTime;
+let difficulty = 0;
+let subHighScore;
+let subHighStreak;
+let addHighScore;
+let addHighStreak;
+
+
 
 addAnswerListener();
 addPlayAgainListener();
 addSettingsListener();
 
+function increaseDifficulty(){
+  difficulty++;
+  console.log("difficulty is: " + difficulty);
+  if(difficulty === 5){
+    selectedNum = selectedNum * 2;
+    return;
+  } else if (difficulty === 10){
+    selectedNum = selectedNum * 2;
+    return;
+  } else if (difficulty === 20){
+    selectedNum = selectedNum * 2;
+    return;
+  } else if (difficulty === 35){
+    selectedNum = selectedNum * 2;
+    return;
+  } else{
+    return
+  }
+}
+
+
+function configSettings(gameMode){
+  checkSelectedNum();
+  checkAnswerTime()
+  gameSettings(gameMode)
+}
+
+function checkSelectedNum(){
+  let selnum = localStorage.getItem("selectedNum");
+  if (selnum === null){
+    selectedNum = 12
+  } else{
+    selectedNum = parseInt(selnum);
+
+  }
+}
+function checkAnswerTime(){
+  let ansum = localStorage.getItem("answerTime");
+  if (ansum === null){
+    answerTime = 40
+  } else {
+    answerTime = parseInt(ansum);
+  }
+}
+
 addition.addEventListener("click", () =>{
   gameMain.textContent = "";
-  gameSettings("Addition")
+  configSettings("addition");
   loadQuestions();
-  // question();
 })
 
 subtraction.addEventListener("click", () => {
   gameMain.textContent = "";
-  gameSettings("Subtraction");
+  configSettings("subtraction");
   loadQuestions();
-  // question(q1, q2);
 })
 
 function gameSettings(setting){
@@ -55,12 +103,13 @@ function randomNumber(selectedNum){
 
 
 function loadQuestions(){
+  increaseDifficulty();
   gameMain.textContent = "";
   let numberA= randomNumber(selectedNum)
   let numberB= randomNumber(selectedNum)
   console.log(numberA);
   console.log(numberB);
-  if(gameMode === "Addition"){
+  if(gameMode === "addition"){
     let symbol = "+"
     generateQuestion(numberA, numberB, symbol);
     generateAnswer(numberA, numberB, symbol);
@@ -69,7 +118,7 @@ function loadQuestions(){
     showScore();
     showStreak();
     return;
-  } else if(gameMode === "Subtraction"){
+  } else if(gameMode === "subtraction"){
     let symbol = "-"
     generateQuestion(numberA, numberB, symbol)
     generateAnswer(numberA, numberB, symbol)
@@ -205,24 +254,20 @@ function addSettingsListener(){
       let answerSetting = answerTime.value
       let highestNumber = document.querySelector(".highestNumber")
       let highestSetting = highestNumber.value;
-      localStorage.setItem("selectedNum", JSON.stringify(highestSetting));
-      localStorage.setItem("answerTime", JSON.stringify(answerSetting));
+      localStorage.setItem("selectedNum", highestSetting);
+      localStorage.setItem("answerTime", answerSetting);
       console.log(answerSetting + highestSetting);
       window.location.reload();
     }
   })
 };
 
+
+
 settings.addEventListener("click", ()=>{
   openSettings();
 })
 
-function saveSettings(newVal){
-  saveData.newVal = newVal;
-  localStorage.saveData = JSON.stringify(saveData)
-
-
-}
 
 function checkAnswer(answerToCheck){
   console.log(typeof(answerToCheck));
@@ -259,11 +304,9 @@ function checkAnswer(answerToCheck){
       gameOver();
       return;
     } else {
-
-
     wrongAnswer();
     setTimeout(function(){
-      loadQuestions()
+      loadQuestions();
     }, 1500);
   }
 }
@@ -408,7 +451,8 @@ function checkHealth(){
     return true
   } return false
 
-}
+};
+
 
 function gameOver(){
   gameMain.textContent = "";
@@ -420,15 +464,14 @@ function gameOver(){
   let gameOverSub = document.createElement("span");
   gameOverSub.textContent = "Play again?"
   let highScore = document.createElement("span");
-  highScore.textContent = ("Your highscore is " + score)
+  highScore.textContent = ("Highscore: " + score)
   let bestStreakText = document.createElement("span");
-  bestStreakText.textContent = `Your best streak was ${bestStreak} correct answers in a row`;
+  bestStreakText.textContent = `Best streak: ${bestStreak}`;
   let playAgain = document.createElement("button");
   playAgain.classList.add("playAgain");
   playAgain.textContent = "Yes!"
 
   gameOverDiv.appendChild(gameOverText);
-
   gameOverDiv.appendChild(highScore);
   gameOverDiv.appendChild(bestStreakText);
   gameOverDiv.appendChild(gameOverSub);
@@ -464,6 +507,13 @@ function saveStreak(streak){
 
 };
 
+function openLeaderboard(){
+  gameMain.textContent = ""
+  let leaderBoardDiv = document.createElement("div");
+  leaderBoardDiv.classList.add("leaderBoardDiv");
+  let leaderHeader = document.createElement("h3");
+  leaderHeader.classList.add("leaderHeader");
+}
 
 function openSettings(){
   gameMain.textContent= ""
