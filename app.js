@@ -28,6 +28,11 @@ let subHighStreak;
 let addHighScore;
 let addHighStreak;
 
+gameMain.addEventListener('touchstart', () => {});
+gameMain.addEventListener('touchend', () => {});
+gameMain.addEventListener('touchcancel', () => {});
+gameMain.addEventListener('touchmove', () => {});
+
 
 
 addAnswerListener();
