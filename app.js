@@ -1,6 +1,8 @@
 // Query selectors
 
+let home = document.querySelector(".home")
 let settings = document.querySelector(".settings");
+let leaderBoard = document.querySelector(".leaderboard");
 let addition = document.querySelector(".addition");
 let subtraction =document.querySelector(".subtraction");
 let gameMain = document.querySelector(".game-main");
@@ -22,17 +24,17 @@ let bestStreak = 0;
 let myTimer;
 let selectedNum;
 let answerTime;
+let highScores = JSON.parse(localStorage["highScores"]) || [];
+let highStreaks = JSON.parse(localStorage["highStreaks"]) || [];
 let difficulty = 0;
-let subHighScore;
-let subHighStreak;
-let addHighScore;
-let addHighStreak;
+let subHighScore = 0;
+let subHighStreak = 0;
+
 
 gameMain.addEventListener('touchstart', () => {});
 gameMain.addEventListener('touchend', () => {});
 gameMain.addEventListener('touchcancel', () => {});
 gameMain.addEventListener('touchmove', () => {});
-
 
 
 addAnswerListener();
@@ -259,9 +261,10 @@ function addSettingsListener(){
       let answerSetting = answerTime.value
       let highestNumber = document.querySelector(".highestNumber")
       let highestSetting = highestNumber.value;
-      localStorage.setItem("selectedNum", highestSetting);
-      localStorage.setItem("answerTime", answerSetting);
-      console.log(answerSetting + highestSetting);
+      let hTime = checkSettings(answerSetting)
+      let hNum = checkSettings(highestSetting)
+      localStorage.setItem("selectedNum", hNum);
+      localStorage.setItem("answerTime", hTime);
       window.location.reload();
     }
   })
@@ -269,9 +272,31 @@ function addSettingsListener(){
 
 
 
+function checkSettings(num){
+  if(num === ""){
+    num = 20
+    return num
+  } else if (num !== ""){
+    return num
+  }
+};
+
+
 settings.addEventListener("click", ()=>{
   openSettings();
 })
+
+leaderBoard.addEventListener("click", () =>{
+  let highScoreBoard = JSON.parse(localStorage["highScores"]);
+  let highStreaksBoard = JSON.parse(localStorage["highStreaks"]);
+  console.log(highScoreBoard)
+  openLeaderboard(highStreaksBoard, highScoreBoard);
+})
+
+home.addEventListener("click", () =>{
+  window.location.reload();
+})
+
 
 
 function checkAnswer(answerToCheck){
@@ -476,13 +501,75 @@ function gameOver(){
   highScore.textContent = ("Highscore: " + score)
   let bestStreakText = document.createElement("span");
   bestStreakText.textContent = `Best streak: ${bestStreak}`;
-
-
+  let nHighScore = newHighScore(score, "highScores");
+  setHighScore("highScores", nHighScore)
+  let nHighStreak = newHighScore(bestStreak, "highStreaks");
+  setHighScore("highStreaks", nHighStreak)
   gameOverDiv.appendChild(gameOverText);
   gameOverDiv.appendChild(highScore);
   gameOverDiv.appendChild(bestStreakText);
   gameOverDiv.appendChild(playAgain);
   gameMain.appendChild(gameOverDiv);
+}
+
+function setHighScore(list, score){
+  console.log("list to add: " + list + "score to add: " + score)
+  console.log(typeof(score))
+ if (list === "highScores"){
+   localStorage["highScores"] = JSON.stringify(score);
+   return
+ } else {
+   localStorage["highStreaks"] = JSON.stringify(score);
+   return;
+ }
+
+};
+
+
+
+function trimScoreBoard(listToSort){
+  console.log(listToSort)
+  console.log(typeof(listToSort))
+  let newScoreBoard = sortList(listToSort)
+  if(newScoreBoard.length >= 5){
+    newScoreBoard.length = 5
+    return newScoreBoard
+  } else if (newScoreBoard.length < 5){
+    return newScoreBoard
+  }
+};
+
+function sortList(listToSort){
+  listToSort.sort((a, b) => b - a);
+  return listToSort
+}
+
+function checkArrayLength(arr){
+  if(arr.length === 0){
+    return true
+  } return false
+};
+
+function newHighScore(score, arr){
+  arrayToCheck = JSON.parse(localStorage[arr])
+  if (checkArrayLength(arrayToCheck) === true){
+    arrayToCheck.push(score);
+    return arrayToCheck
+  } else {
+    for (let i = 0; i < arrayToCheck.length; i++){
+      if (score > arrayToCheck[i]){
+        arrayToCheck.push(score)
+        console.log(arrayToCheck + " new highscore board")
+        return arrayToCheck
+      } else if ( score < arrayToCheck[i]){
+          console.log(typeof(arrayToCheck))
+        console.log(" no new score")
+        return arrayToCheck
+      }
+
+    }
+  }
+
 }
 
 function showScore(){
@@ -513,12 +600,36 @@ function saveStreak(streak){
 
 };
 
-function openLeaderboard(){
+function openLeaderboard(streaks, hScores){
   gameMain.textContent = ""
   let leaderBoardDiv = document.createElement("div");
   leaderBoardDiv.classList.add("leaderBoardDiv");
-  let leaderHeader = document.createElement("h3");
-  leaderHeader.classList.add("leaderHeader");
+  leaderTable = document.createElement("div");
+  leaderTable.classList.add("leaderTable")
+  sortedHighScores = trimScoreBoard(hScores);
+  sortedHighStreaks = trimScoreBoard(streaks);
+  createList(leaderTable, "Highscores", sortedHighScores)
+  createList(leaderTable, "Best Streak", sortedHighStreaks)
+}
+
+
+function createList(div, scoreHeader, scoreType){
+  ul = document.createElement("ul");
+  ul.classList.add("leaderBoardScores")
+  scoreType.forEach(function(score){
+    let li = document.createElement("li");
+    ul.appendChild(li);
+    li.innerHTML += score
+  })
+  header = document.createElement("h3")
+  scoreList = document.createElement("div")
+  scoreList.classList.add("scoreList")
+  header.textContent = scoreHeader
+  div.appendChild(header)
+  scoreList.appendChild(ul)
+  div.appendChild(scoreList)
+  gameMain.appendChild(div);
+
 }
 
 function openSettings(){

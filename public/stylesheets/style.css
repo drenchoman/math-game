@@ -5,11 +5,15 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
 margin: 0;
 }
 
-h1{
+.home{
   font-family: 'Bangers', cursive;
   font-size: 5em;
   text-shadow: 2px 2px 5px #A239EA;
 
+}
+
+.home:hover{
+  cursor: pointer;
 }
 
 .container{
@@ -62,8 +66,32 @@ padding-top: 2.5%;
                 6px 6px 0px #A239EA;
 }
 
+.game-option:hover{
+  cursor: pointer;
+}
 
+/* LeaderBoard */
 
+.leaderBoardDiv{
+  display: flex;
+  justify-content: center;
+}
+.leaderHeader{
+  font-size: 3em;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+}
+
+.leaderTable{
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.leaderTable > h3{
+  font-size: 3em;
+  font-family: 'Nunito', sans-serif;
+}
 
 .questionDiv{
   display: flex;
@@ -75,6 +103,7 @@ padding-top: 2.5%;
 .questionDiv > span {
   font-size: 4em;
   font-family: 'Nunito', sans-serif;
+  font-weight: 700;
 }
 
 .answerDiv {
@@ -91,14 +120,7 @@ padding-top: 2.5%;
   border-radius: 100%;
   height: 10%;
   background-color: deepskyblue;
-<<<<<<< HEAD
-=======
-
-    -webkit-appearance: none;
-}
-
-.answerBox > span {
->>>>>>> aa10c689635cb660d3adcdb0c92b47e254f745b5
+  -webkit-appearance: none;
   font-size: 2em;
   font-family: 'Nunito', sans-serif;
   padding: 5% 6%;
@@ -109,6 +131,8 @@ padding-top: 2.5%;
                 5px 5px 0px #A239EA,
                 6px 6px 0px #A239EA;
 }
+
+
 
 
 
@@ -280,6 +304,15 @@ align-items: center;
   bottom: 100px;
   left: 100px;
 }
+.leaderBoardScores{
+  font-size: 1.5em;
+  font-family: 'Nunito', sans-serif;
+
+}
+
+.leaderboard:hover, .settings:hover{
+  cursor: pointer;
+}
 
 .settingsDiv{
   display: flex;
@@ -325,15 +358,44 @@ align-items: center;
                 5px 5px 0px #A239EA,
                 6px 6px 0px #A239EA;
 }
+.answerTime, .highestNumber{
+  width: 100%;
+}
 
 
 
-
+@media screen and (max-width: 1366px){
+  .home{
+    font-size: 8em;
+  }
+  .game-option{
+    width: 30%;
+  }
+  .playAgain{
+    width: 30%;
+  }
+  .answerTime, .highestNumber{
+    width: 100%;
+  }
+  .settingsDiv > span{
+    font-size: 5em;
+    font-weight: 700;
+  }
+  .formDiv > label {
+    font-size: 4em;
+  }
+}
 
 @media screen and (max-width: 1024px){
+  .home{
+    font-size: 6em;
+  }
   .game-option {
     width: 35%;
 
+  }
+  .game-main{
+    padding: 0;
   }
   .scoreDiv{
     bottom: 30px;
@@ -349,7 +411,22 @@ align-items: center;
   .clockDiv{
     right: 50px;
   }
+  .answerTime, .highestNumber{
+    width: 75%;
+  }
+  .formDiv > label {
+    font-size: 2em;
+  }
+  .settingsDiv > span{
+    font-size: 3.5em;
+    font-weight: 700;
+  }
+  .leaderTable > h3 {
+    margin: 0;
+    font-size: 2.5em;
+  }
 }
+
 
 @media screen and (max-width: 375px){
   .title-container{
@@ -357,7 +434,7 @@ align-items: center;
     line-height: 1;
     margin: 0 auto;
   }
-  h1{
+  .home{
     font-size: 3em;
     text-align: center;
   }
@@ -448,7 +525,7 @@ align-items: center;
     line-height: 1;
     margin: 0 auto;
   }
-  h1{
+  .home{
     font-size: 4em;
     text-align: center;
   }
@@ -538,7 +615,7 @@ align-items: center;
     line-height: 1;
     margin: 0 auto;
   }
-  h1{
+  .home{
     font-size: 3em;
     text-align: center;
   }
