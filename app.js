@@ -542,7 +542,7 @@ function checkArrayLength(arr){
 };
 
 function newHighScore(score, arr){
-  arrayToCheck = JSON.parse(localStorage[arr])
+  arrayToCheck = JSON.parse.getItem((localStorage[arr]));
   if (checkArrayLength(arrayToCheck) === true){
     arrayToCheck.push(score);
     return arrayToCheck
