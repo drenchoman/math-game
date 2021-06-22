@@ -201,29 +201,29 @@ function generateAnswer(num1, num2, symbol){
 
 
 function generateAnswerField(answers){
-let answerOne = document.createElement("div");
-let answerTwo = document.createElement("div");
-let answerThree = document.createElement("div");
+let answerOne = document.createElement("button");
+let answerTwo = document.createElement("button");
+let answerThree = document.createElement("button");
 let answerDiv = document.createElement("div");
-let a1 = document.createElement("span");
-let a2 = document.createElement("span");
-let a3 = document.createElement("span");
+// let a1 = document.createElement("span");
+// let a2 = document.createElement("span");
+// let a3 = document.createElement("span");
 
 answerOne.classList.add("answerBox");
 answerTwo.classList.add("answerBox");
 answerThree.classList.add("answerBox");
 
-a1.classList.add("answer");
-a2.classList.add("answer");
-a3.classList.add("answer");
+// answerOne.classList.add("answer");
+// answerTwo.classList.add("answer");
+// answerThree.classList.add("answer");
 
 answerDiv.classList.add("answerDiv")
-a1.textContent = (answers[0])
-a2.textContent = (answers[1])
-a3.textContent = (answers[2])
-answerOne.appendChild(a1);
-answerTwo.appendChild(a2);
-answerThree.appendChild(a3);
+answerOne.textContent = (answers[0])
+answerTwo.textContent = (answers[1])
+answerThree.textContent = (answers[2])
+// answerOne.appendChild(a1);
+// answerTwo.appendChild(a2);
+// answerThree.appendChild(a3);
 answerDiv.appendChild(answerOne);
 answerDiv.appendChild(answerTwo);
 answerDiv.appendChild(answerThree);
@@ -232,7 +232,7 @@ gameMain.appendChild(answerDiv);
 
 function addAnswerListener(){
   body.addEventListener('click', event => {
-    if (event.target.matches('.answer')){
+    if (event.target.matches('.answerBox')){
       checkAnswer(event.target.innerText);
       clearInterval(myTimer);
     }
@@ -278,6 +278,7 @@ function checkAnswer(answerToCheck){
     let healthCheck = checkHealth();
     if (healthCheck === true){
       gameOver();
+      return;
     } else{
       timeOut();
       setTimeout(function(){
@@ -319,14 +320,15 @@ function clock(answerTime){
 
   function myClock(){
 
-    clockSpan.textContent = "Time remaining:"
+    clockSpan.textContent = "Time"
     clockTime.textContent = --c
     clockDiv.appendChild(clockSpan);
     clockDiv.appendChild(clockTime);
     gameMain.appendChild(clockDiv);
     if (c === 0){
-      clearInterval(myTimer);
       checkAnswer("out");
+      clearInterval(myTimer);
+
     }
   }
 };
@@ -337,6 +339,7 @@ function correctAnswer(){
   let correctDiv = document.createElement("div");
   correctDiv.classList.add("correctDiv");
   let correctSpan = document.createElement("span");
+  correctSpan.classList.add("correctSpan");
   let correctImage = document.createElement("img");
   correctImage.src = "public/images/unicorn.jpg"
   correctImage.classList.add("correctImage");
@@ -355,7 +358,7 @@ function timeOut(){
     let timeOutImage = document.createElement("img");
     timeOutImage.src = "public/images/shocked.jpg"
     timeOutImage.classList.add("timeOutImage");
-    timeOutSpan.classList.add("wrongSpan")
+    timeOutSpan.classList.add("timeOutSpan")
     timeOutSpan.textContent = "You ran out of time!"
     timeOutDiv.appendChild(timeOutSpan);
     timeOutDiv.appendChild(timeOutImage);
@@ -372,7 +375,7 @@ function wrongAnswer(){
     wrongImage.src = "public/images/sadcat.jpg"
     wrongImage.classList.add("wrongImage");
     wrongSpan.classList.add("wrongSpan")
-    wrongSpan.textContent = "Wrong! You've lost a life!"
+    wrongSpan.textContent = "You've lost a life!"
     wrongDiv.appendChild(wrongSpan);
     wrongDiv.appendChild(wrongImage);
     gameMain.appendChild(wrongDiv)
@@ -393,7 +396,7 @@ function showHealth(health){
   let hp2 = document.createElement("li");
   let hp3 = document.createElement("li");
   let healthText = document.createElement("span");
-  healthText.textContent = "Your lives"
+  healthText.textContent = "Lives"
 
   if (health === 3){
     let health1 = document.createElement("img");
@@ -461,20 +464,18 @@ function gameOver(){
   let gameOverText = document.createElement("h2");
   gameOverText.classList.add("gameOverText");
   gameOverText.textContent = "You ran out of lives!"
-  let gameOverSub = document.createElement("span");
-  gameOverSub.textContent = "Play again?"
+  let playAgain = document.createElement("button");
+  playAgain.textContent = "Play again?"
+  playAgain.classList.add("playAgain")
   let highScore = document.createElement("span");
   highScore.textContent = ("Highscore: " + score)
   let bestStreakText = document.createElement("span");
   bestStreakText.textContent = `Best streak: ${bestStreak}`;
-  let playAgain = document.createElement("button");
-  playAgain.classList.add("playAgain");
-  playAgain.textContent = "Yes!"
+
 
   gameOverDiv.appendChild(gameOverText);
   gameOverDiv.appendChild(highScore);
   gameOverDiv.appendChild(bestStreakText);
-  gameOverDiv.appendChild(gameOverSub);
   gameOverDiv.appendChild(playAgain);
   gameMain.appendChild(gameOverDiv);
 }
@@ -483,7 +484,7 @@ function showScore(){
   let scoreDiv = document.createElement("div");
   let scoreText = document.createElement("span");
   scoreDiv.classList.add("scoreDiv")
-  scoreText.textContent= ("Your score is: " + score);
+  scoreText.textContent= ("Score: " + score);
 
   scoreDiv.appendChild(scoreText);
   gameMain.appendChild(scoreDiv);
@@ -493,7 +494,7 @@ function showStreak(){
   let streakDiv = document.createElement("div");
   let streakText = document.createElement("span");
   streakDiv.classList.add("streakDiv");
-  streakText.textContent= ("Your streak is: " + streak);
+  streakText.textContent= ("Streak: " + streak);
 
   streakDiv.appendChild(streakText);
   gameMain.appendChild(streakDiv);
@@ -530,10 +531,11 @@ function openSettings(){
   highestLabel.textContent = "Set largest number";
   let answerLabel = document.createElement("label");
   answerLabel.textContent = "Set Answer Time"
+  answerLabel.classList.add("answerLabel")
   let answerTime = document.createElement("input");
   answerTime.setAttribute("type", "number");
   answerTime.classList.add("answerTime");
-  let settingsButton = document.createElement("span")
+  let settingsButton = document.createElement("button")
   settingsButton.textContent= "Submit"
   settingsButton.classList.add("settingsButton");
   formDiv.appendChild(highestLabel);
