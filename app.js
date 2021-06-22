@@ -24,8 +24,8 @@ let bestStreak = 0;
 let myTimer;
 let selectedNum;
 let answerTime;
-let highScores = JSON.parse(localStorage["highScores"]) || [];
-let highStreaks = JSON.parse(localStorage["highStreaks"]) || [];
+let highScores = JSON.parse(localStorage["highScores"]) : [];
+let highStreaks = JSON.parse(localStorage["highStreaks"]) : [];
 let difficulty = 0;
 let subHighScore = 0;
 let subHighStreak = 0;
@@ -87,13 +87,23 @@ addition.addEventListener("click", () =>{
 
 })
 
-
-
 subtraction.addEventListener("click", () => {
   gameMain.textContent = "";
   configSettings("subtraction");
   loadQuestions();
+});
+
+leaderBoard.addEventListener("click", () =>{
+  let highScoreBoard = JSON.parse(localStorage["highScores"]);
+  let highStreaksBoard = JSON.parse(localStorage["highStreaks"]);
+  console.log(highScoreBoard)
+  openLeaderboard(highStreaksBoard, highScoreBoard);
 })
+
+home.addEventListener("click", () =>{
+  window.location.reload();
+});
+
 
 function gameSettings(setting){
   gameMode = setting
@@ -167,7 +177,7 @@ function shuffleAnswers(array){
 
   }
   return array;
-}
+};
 
 function generateAnswer(num1, num2, symbol){
   if (symbol === "+"){
@@ -201,7 +211,7 @@ function generateAnswer(num1, num2, symbol){
   }
   }
   console.log("OOOPS")
-}
+};
 
 
 function generateAnswerField(answers){
@@ -209,25 +219,19 @@ let answerOne = document.createElement("button");
 let answerTwo = document.createElement("button");
 let answerThree = document.createElement("button");
 let answerDiv = document.createElement("div");
-// let a1 = document.createElement("span");
-// let a2 = document.createElement("span");
-// let a3 = document.createElement("span");
+
 
 answerOne.classList.add("answerBox");
 answerTwo.classList.add("answerBox");
 answerThree.classList.add("answerBox");
 
-// answerOne.classList.add("answer");
-// answerTwo.classList.add("answer");
-// answerThree.classList.add("answer");
+
 
 answerDiv.classList.add("answerDiv")
 answerOne.textContent = (answers[0])
 answerTwo.textContent = (answers[1])
 answerThree.textContent = (answers[2])
-// answerOne.appendChild(a1);
-// answerTwo.appendChild(a2);
-// answerThree.appendChild(a3);
+
 answerDiv.appendChild(answerOne);
 answerDiv.appendChild(answerTwo);
 answerDiv.appendChild(answerThree);
@@ -241,7 +245,7 @@ function addAnswerListener(){
       clearInterval(myTimer);
     }
   })
-}
+};
 
 function addPlayAgainListener(){
 body.addEventListener("click", event => {
@@ -283,16 +287,6 @@ settings.addEventListener("click", ()=>{
   openSettings();
 })
 
-leaderBoard.addEventListener("click", () =>{
-  let highScoreBoard = JSON.parse(localStorage["highScores"]);
-  let highStreaksBoard = JSON.parse(localStorage["highStreaks"]);
-  console.log(highScoreBoard)
-  openLeaderboard(highStreaksBoard, highScoreBoard);
-})
-
-home.addEventListener("click", () =>{
-  window.location.reload();
-})
 
 
 
