@@ -12,9 +12,9 @@ margin: 0;
 
 }
 
-.home:hover{
+/* .home:hover{
   cursor: pointer;
-}
+} */
 
 .container{
   display: flex;
@@ -66,9 +66,9 @@ padding-top: 2.5%;
                 6px 6px 0px #A239EA;
 }
 
-.game-option:hover{
+/* .game-option:hover{
   cursor: pointer;
-}
+} */
 
 /* LeaderBoard */
 
@@ -310,9 +310,9 @@ align-items: center;
 
 }
 
-.leaderboard:hover, .settings:hover{
+/* .leaderboard:hover, .settings:hover{
   cursor: pointer;
-}
+} */
 
 .settingsDiv{
   display: flex;
