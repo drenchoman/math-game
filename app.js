@@ -94,8 +94,8 @@ subtraction.addEventListener("click", () => {
 });
 
 leaderBoard.addEventListener("click", () =>{
-  let highScoreBoard = JSON.parse(localStorage["highScores"]);
-  let highStreaksBoard = JSON.parse(localStorage["highStreaks"]);
+  let highScoreBoard = JSON.parse(localStorage.getItem(["highScores"]));
+  let highStreaksBoard = JSON.parse(localStorage.getItem(["highStreaks"]));
   console.log(highScoreBoard)
   openLeaderboard(highStreaksBoard, highScoreBoard);
 })
