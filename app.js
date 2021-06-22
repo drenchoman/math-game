@@ -86,10 +86,18 @@ function checkAnswerTime(){
   }
 }
 
-addition.addEventListener("click", () =>{
+addition.addEventListener("click", (e) =>{
   gameMain.textContent = "";
   configSettings("addition");
   loadQuestions();
+  e.preventDefault();
+})
+
+addition.addEventListener("touchstart", (e) =>{
+  gameMain.textContent = "";
+  configSettings("addition");
+  loadQuestions();
+  e.preventDefault();
 })
 
 subtraction.addEventListener("click", () => {
