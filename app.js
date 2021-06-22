@@ -31,10 +31,10 @@ let subHighScore = 0;
 let subHighStreak = 0;
 
 
-gameMain.addEventListener('touchstart', () => {});
-gameMain.addEventListener('touchend', () => {});
-gameMain.addEventListener('touchcancel', () => {});
-gameMain.addEventListener('touchmove', () => {});
+// gameMain.addEventListener('touchstart', () => {});
+// gameMain.addEventListener('touchend', () => {});
+// gameMain.addEventListener('touchcancel', () => {});
+// gameMain.addEventListener('touchmove', () => {});
 
 
 addAnswerListener();
