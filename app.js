@@ -31,12 +31,6 @@ let subHighScore = 0;
 let subHighStreak = 0;
 
 
-// gameMain.addEventListener('touchstart', () => {});
-// gameMain.addEventListener('touchend', () => {});
-// gameMain.addEventListener('touchcancel', () => {});
-// gameMain.addEventListener('touchmove', () => {});
-
-
 addAnswerListener();
 addPlayAgainListener();
 addSettingsListener();
@@ -86,19 +80,14 @@ function checkAnswerTime(){
   }
 }
 
-addition.addEventListener("click", (e) =>{
+addition.addEventListener("click", () =>{
   gameMain.textContent = "";
   configSettings("addition");
   loadQuestions();
-  e.preventDefault();
+
 })
 
-addition.addEventListener("touchstart", (e) =>{
-  gameMain.textContent = "";
-  configSettings("addition");
-  loadQuestions();
-  e.preventDefault();
-})
+
 
 subtraction.addEventListener("click", () => {
   gameMain.textContent = "";
