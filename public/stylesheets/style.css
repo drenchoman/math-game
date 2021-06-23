@@ -427,15 +427,14 @@ align-items: center;
   }
 }
 
-
-@media screen and (max-width: 375px){
+@media screen and (max-width: 414px){
   .title-container{
     width: 30%;
     line-height: 1;
     margin: 0 auto;
   }
   .home{
-    font-size: 3em;
+    font-size: 4em;
     text-align: center;
   }
   .game-option-container{
@@ -448,11 +447,11 @@ align-items: center;
     width: 100%;
   }
   .leaderboard, .settings{
-    bottom: 50px;
+    bottom: 100px;
   }
   .game-main{
     padding: 0;
-    padding-top: 15%;
+
   }
   .questionDiv > span{
     font-size: 3em;
@@ -477,10 +476,11 @@ align-items: center;
   }
   .streakDiv{
     right: 25px;
-
+    bottom: 100px;
   }
   .scoreDiv{
     left: 25px;
+    bottom: 100px;
   }
   .answerDiv{
     width: 80%;
@@ -518,15 +518,14 @@ align-items: center;
   }
 }
 
-
-@media screen and (max-width: 414px){
+@media screen and (max-width: 375px){
   .title-container{
     width: 30%;
     line-height: 1;
     margin: 0 auto;
   }
   .home{
-    font-size: 4em;
+    font-size: 3em;
     text-align: center;
   }
   .game-option-container{
@@ -539,11 +538,11 @@ align-items: center;
     width: 100%;
   }
   .leaderboard, .settings{
-    bottom: 50px;
+    bottom: 80px;
   }
   .game-main{
     padding: 0;
-
+    padding-top: 15%;
   }
   .questionDiv > span{
     font-size: 3em;
@@ -629,7 +628,7 @@ align-items: center;
     width: 100%;
   }
   .leaderboard, .settings{
-    bottom: 50px;
+    bottom: 70px;
   }
   .game-main{
     padding: 0;
