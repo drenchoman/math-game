@@ -35,6 +35,72 @@ addAnswerListener();
 addPlayAgainListener();
 addSettingsListener();
 
+///////// Event Listeners //////////
+
+addition.addEventListener("click", () =>{
+  gameMain.textContent = "";
+  configSettings("addition");
+  loadQuestions();
+
+});
+
+subtraction.addEventListener("click", () => {
+  gameMain.textContent = "";
+  configSettings("subtraction");
+  loadQuestions();
+});
+
+leaderBoard.addEventListener("click", () =>{
+  // let highScoreBoard = JSON.parse(localStorage.getItem(["highScores"]));
+  // let highStreaksBoard = JSON.parse(localStorage.getItem(["highStreaks"]));
+  // console.log(highScoreBoard)
+  openLeaderboard(highStreaks, highScores);
+});
+
+home.addEventListener("click", () =>{
+  window.location.reload();
+});
+
+settings.addEventListener("click", ()=>{
+  openSettings();
+});
+
+
+
+function addAnswerListener(){
+  body.addEventListener('click', event => {
+    if (event.target.matches('.answerBox')){
+      checkAnswer(event.target.innerText);
+      clearInterval(myTimer);
+    }
+  })
+};
+
+function addPlayAgainListener(){
+body.addEventListener("click", event => {
+  if (event.target.matches(".playAgain")){
+    window.location.reload();
+  }
+})
+};
+
+function addSettingsListener(){
+  body.addEventListener("click", event => {
+    if (event.target.matches(".settingsButton")){
+      let answerTime = document.querySelector(".answerTime");
+      let answerSetting = answerTime.value
+      let highestNumber = document.querySelector(".highestNumber")
+      let highestSetting = highestNumber.value;
+      let hTime = checkSettings(answerSetting)
+      let hNum = checkSettings(highestSetting)
+      localStorage.setItem("selectedNum", hNum);
+      localStorage.setItem("answerTime", hTime);
+      window.location.reload();
+    }
+  })
+};
+
+
 function increaseDifficulty(){
   difficulty++;
   console.log("difficulty is: " + difficulty);
@@ -50,10 +116,12 @@ function increaseDifficulty(){
   } else if (difficulty === 35){
     selectedNum = selectedNum * 2;
     return;
-  } else{
+  } else if (difficulty === 50){
+    selectedNum = selectedNum * 2;
+  } else {
     return
   }
-}
+};
 
 
 function configSettings(gameMode){
@@ -70,7 +138,8 @@ function checkSelectedNum(){
     selectedNum = parseInt(selnum);
 
   }
-}
+};
+
 function checkAnswerTime(){
   let ansum = localStorage.getItem("answerTime");
   if (ansum === null){
@@ -78,31 +147,7 @@ function checkAnswerTime(){
   } else {
     answerTime = parseInt(ansum);
   }
-}
-
-addition.addEventListener("click", () =>{
-  gameMain.textContent = "";
-  configSettings("addition");
-  loadQuestions();
-
-})
-
-subtraction.addEventListener("click", () => {
-  gameMain.textContent = "";
-  configSettings("subtraction");
-  loadQuestions();
-});
-
-leaderBoard.addEventListener("click", () =>{
-  // let highScoreBoard = JSON.parse(localStorage.getItem(["highScores"]));
-  // let highStreaksBoard = JSON.parse(localStorage.getItem(["highStreaks"]));
-  // console.log(highScoreBoard)
-  openLeaderboard(highStreaks, highScores);
-})
-
-home.addEventListener("click", () =>{
-  window.location.reload();
-});
+};
 
 
 function gameSettings(setting){
@@ -238,40 +283,6 @@ answerDiv.appendChild(answerThree);
 gameMain.appendChild(answerDiv);
 }
 
-function addAnswerListener(){
-  body.addEventListener('click', event => {
-    if (event.target.matches('.answerBox')){
-      checkAnswer(event.target.innerText);
-      clearInterval(myTimer);
-    }
-  })
-};
-
-function addPlayAgainListener(){
-body.addEventListener("click", event => {
-  if (event.target.matches(".playAgain")){
-    window.location.reload();
-  }
-})
-};
-
-function addSettingsListener(){
-  body.addEventListener("click", event => {
-    if (event.target.matches(".settingsButton")){
-      let answerTime = document.querySelector(".answerTime");
-      let answerSetting = answerTime.value
-      let highestNumber = document.querySelector(".highestNumber")
-      let highestSetting = highestNumber.value;
-      let hTime = checkSettings(answerSetting)
-      let hNum = checkSettings(highestSetting)
-      localStorage.setItem("selectedNum", hNum);
-      localStorage.setItem("answerTime", hTime);
-      window.location.reload();
-    }
-  })
-};
-
-
 
 function checkSettings(num){
   if(num === ""){
@@ -281,14 +292,6 @@ function checkSettings(num){
     return num
   }
 };
-
-
-settings.addEventListener("click", ()=>{
-  openSettings();
-})
-
-
-
 
 function checkAnswer(answerToCheck){
   console.log(typeof(answerToCheck));
@@ -362,7 +365,11 @@ function correctAnswer(){
   let correctSpan = document.createElement("span");
   correctSpan.classList.add("correctSpan");
   let correctImage = document.createElement("img");
-  correctImage.src = "public/images/unicorn.jpg"
+  if (score > 10){
+    correctImage.src = "public/images/amazed.jpg"
+  } else{
+    correctImage.src = "public/images/unicorn.jpg"
+  }
   correctImage.classList.add("correctImage");
   correctSpan.textContent = "Correct!"
   correctDiv.appendChild(correctSpan);
