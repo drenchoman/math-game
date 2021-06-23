@@ -1,5 +1,9 @@
 // Query selectors
 
+let bike = new Audio('public/audio/bike.mp3');
+let cheer = new Audio('public/audio/cheer.mp3');
+let fart = new Audio('public/audio/fart.mp3')
+let start = new Audio('public/audio/pew.mp3')
 let home = document.querySelector(".home")
 let settings = document.querySelector(".settings");
 let leaderBoard = document.querySelector(".leaderboard");
@@ -41,30 +45,45 @@ addition.addEventListener("click", () =>{
   gameMain.textContent = "";
   configSettings("addition");
   loadQuestions();
-
+  startSound();
 });
 
 subtraction.addEventListener("click", () => {
   gameMain.textContent = "";
   configSettings("subtraction");
   loadQuestions();
+  startSound();
 });
 
 leaderBoard.addEventListener("click", () =>{
-  // let highScoreBoard = JSON.parse(localStorage.getItem(["highScores"]));
-  // let highStreaksBoard = JSON.parse(localStorage.getItem(["highStreaks"]));
-  // console.log(highScoreBoard)
   openLeaderboard(highStreaks, highScores);
+  startSound();
 });
 
 home.addEventListener("click", () =>{
   window.location.reload();
+
 });
 
 settings.addEventListener("click", ()=>{
   openSettings();
+  startSound();
 });
 
+// Audio //
+
+function celebrate(){
+  cheer.play();
+}
+function timesout(){
+  bike.play();
+}
+function wrongSound(){
+  fart.play();
+}
+function startSound(){
+  start.play();
+}
 
 
 function addAnswerListener(){
@@ -375,6 +394,7 @@ function correctAnswer(){
   correctDiv.appendChild(correctSpan);
   correctDiv.appendChild(correctImage);
   gameMain.appendChild(correctDiv);
+  celebrate();
 
 }
 
@@ -391,6 +411,7 @@ function timeOut(){
     timeOutDiv.appendChild(timeOutSpan);
     timeOutDiv.appendChild(timeOutImage);
     gameMain.appendChild(timeOutDiv)
+    timesout();
   };
 
 
@@ -407,6 +428,7 @@ function wrongAnswer(){
     wrongDiv.appendChild(wrongSpan);
     wrongDiv.appendChild(wrongImage);
     gameMain.appendChild(wrongDiv)
+    wrongSound();
   };
 
 

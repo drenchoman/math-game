@@ -606,6 +606,10 @@ align-items: center;
   .answerLabel{
     padding-top: 10%;
   }
+  .playAgain{
+    width: 35%;
+    height: 25%;
+  }
 }
 
 @media screen and (max-width: 320px){
