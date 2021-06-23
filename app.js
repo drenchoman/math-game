@@ -545,7 +545,7 @@ function newHighScore(score, arr){
   // arrayToCheck = JSON.parse.getItem((localStorage[arr]));
   if (checkArrayLength(arr) === true){
     arr.push(score);
-    return arrayToCheck
+    return arr
   } else {
     for (let i = 0; i < arr.length; i++){
       if (score > arr[i]){
