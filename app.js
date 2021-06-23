@@ -94,10 +94,10 @@ subtraction.addEventListener("click", () => {
 });
 
 leaderBoard.addEventListener("click", () =>{
-  let highScoreBoard = JSON.parse(localStorage.getItem(["highScores"]));
-  let highStreaksBoard = JSON.parse(localStorage.getItem(["highStreaks"]));
-  console.log(highScoreBoard)
-  openLeaderboard(highStreaksBoard, highScoreBoard);
+  // let highScoreBoard = JSON.parse(localStorage.getItem(["highScores"]));
+  // let highStreaksBoard = JSON.parse(localStorage.getItem(["highStreaks"]));
+  // console.log(highScoreBoard)
+  openLeaderboard(highStreaks, highScores);
 })
 
 home.addEventListener("click", () =>{
@@ -492,9 +492,9 @@ function gameOver(){
   highScore.textContent = ("Highscore: " + score)
   let bestStreakText = document.createElement("span");
   bestStreakText.textContent = `Best streak: ${bestStreak}`;
-  let nHighScore = newHighScore(score, "highScores");
+  let nHighScore = newHighScore(score, highScores);
   setHighScore("highScores", nHighScore)
-  let nHighStreak = newHighScore(bestStreak, "highStreaks");
+  let nHighStreak = newHighScore(bestStreak, highStreaks);
   setHighScore("highStreaks", nHighStreak)
   gameOverDiv.appendChild(gameOverText);
   gameOverDiv.appendChild(highScore);
@@ -542,20 +542,20 @@ function checkArrayLength(arr){
 };
 
 function newHighScore(score, arr){
-  arrayToCheck = JSON.parse.getItem((localStorage[arr]));
-  if (checkArrayLength(arrayToCheck) === true){
-    arrayToCheck.push(score);
+  // arrayToCheck = JSON.parse.getItem((localStorage[arr]));
+  if (checkArrayLength(arr) === true){
+    arr.push(score);
     return arrayToCheck
   } else {
-    for (let i = 0; i < arrayToCheck.length; i++){
-      if (score > arrayToCheck[i]){
-        arrayToCheck.push(score)
-        console.log(arrayToCheck + " new highscore board")
-        return arrayToCheck
-      } else if ( score < arrayToCheck[i]){
-          console.log(typeof(arrayToCheck))
+    for (let i = 0; i < arr.length; i++){
+      if (score > arr[i]){
+        arr.push(score)
+        console.log(arr + " new highscore board")
+        return arr
+      } else if ( score < arr[i]){
+          console.log(typeof(arr))
         console.log(" no new score")
-        return arrayToCheck
+        return arr
       }
 
     }
